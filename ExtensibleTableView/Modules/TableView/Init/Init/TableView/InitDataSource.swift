@@ -16,7 +16,7 @@ class InitDataSource: NSObject, UITableViewDataSource {
         self.model = model
     }
 
-    func regicterNibsForTableView(tableView: UITableView) {
+    func registerNibsForTableView(tableView: UITableView) {
         InitTableViewCell.register(for:tableView)
     }
 
@@ -31,8 +31,7 @@ class InitDataSource: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.deque(for: indexPath) as InitTableViewCell
+        let cell = tableView.dequeCell(for: indexPath) as InitTableViewCell
         cell.textLabel?.text = self.model.sections[indexPath.section].movies[indexPath.row]
         cell.accessoryType = (indexPath == self.model.selectIndexPath) ? .checkmark : .none
 

@@ -36,10 +36,9 @@ public class InitViewController: InitViewControllerType, UITableViewDelegate, Ex
     private func connectTableViewDependencies() {
 
         self.customView.tableView.delegate = self
-        self.dataSource.regicterNibsForTableView(tableView: self.customView.tableView)
+        self.dataSource.registerNibsForTableView(tableView: self.customView.tableView)
         self.customView.tableView.dataSource = self.dataSource
-        let headerNib = UINib.init(nibName: "ExpandableHeaderView", bundle: nil)
-        self.customView.tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: ExpandableHeaderView.kHeaderIdentifier)
+        ExpandableHeaderView.register(for: self.customView.tableView)
     }
 
     // MARK: - Table view delegate
@@ -56,7 +55,7 @@ public class InitViewController: InitViewControllerType, UITableViewDelegate, Ex
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderView.kHeaderIdentifier) as! ExpandableHeaderView
+        let header = tableView.dequeView() as ExpandableHeaderView
         header.customInit(title: self.model.sections[section].genre, subtitle: self.model.sections[section].subtitle, section: section, delegate: self)
         return header
     }

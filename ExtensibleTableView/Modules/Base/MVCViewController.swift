@@ -101,18 +101,46 @@ extension UITableViewCell {
         }
         return cell
     }
+}
+
+extension UITableViewHeaderFooterView {
     
+    class func register(for tableView:UITableView) {
+        let reuseId =  String(describing:self)
+        let headerNib = UINib(nibName: reuseId, bundle: Bundle(for: self))
+        tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: reuseId)
+    }
+    
+    class func deque(from tableView:UITableView) -> UITableViewHeaderFooterView {
+        let reuseId =  String(describing:self)
+        guard
+            let view = tableView.dequeueReusableHeaderFooterView(withIdentifier: reuseId),
+            type(of:view) == self
+            else {
+                fatalError()
+        }
+        return view
+    }
 }
 
 extension UITableView {
     
-    func deque<T>(for indexPath: IndexPath) -> T {
+    func dequeCell<T>(for indexPath: IndexPath) -> T {
         let reuseId =  String(describing:T.self)
         guard
             let cell = dequeueReusableCell(withIdentifier: reuseId, for: indexPath as IndexPath) as? T else {
                 fatalError("Could not dequeue cell with identifier: \(reuseId)")
         }
         return cell
+    }
+    
+    func dequeView<T>() -> T {
+        let reuseId =  String(describing:T.self)
+        guard
+            let view = dequeueReusableHeaderFooterView(withIdentifier: reuseId) as? T else {
+                fatalError("Could not dequeue cell with identifier: \(reuseId)")
+        }
+        return view
     }
 }
 
