@@ -13,6 +13,8 @@ protocol ExpandableHeaderViewDelegate {
 }
 
 class ExpandableHeaderView: UITableViewHeaderFooterView {
+    static let kHeaderIdentifier = "expandableHeaderView"
+
     var delegate: ExpandableHeaderViewDelegate?
     var section: Int!
     

@@ -15,7 +15,6 @@ public class InitViewController: InitViewControllerType, UITableViewDelegate, Ex
     private var dataSource: InitDataSource!
 
     // MARK: - Initializers
-
     convenience init(withView view: InitViewProtocol, model: InitModelProtocol, router: InitRouter, dataSource: InitDataSource) {
 
         self.init(withView: view, model: model, router: router)
@@ -27,7 +26,6 @@ public class InitViewController: InitViewControllerType, UITableViewDelegate, Ex
     }
 
     // MARK: - View life cycle
-
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,11 +39,10 @@ public class InitViewController: InitViewControllerType, UITableViewDelegate, Ex
         self.dataSource.regicterNibsForTableView(tableView: self.customView.tableView)
         self.customView.tableView.dataSource = self.dataSource
         let headerNib = UINib.init(nibName: "ExpandableHeaderView", bundle: nil)
-        self.customView.tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: "ExpandableHeaderView")
+        self.customView.tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: ExpandableHeaderView.kHeaderIdentifier)
     }
 
     // MARK: - Table view delegate
-    
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 58
     }
@@ -59,7 +56,7 @@ public class InitViewController: InitViewControllerType, UITableViewDelegate, Ex
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ExpandableHeaderView") as! ExpandableHeaderView
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: ExpandableHeaderView.kHeaderIdentifier) as! ExpandableHeaderView
         header.customInit(title: self.model.sections[section].genre, subtitle: self.model.sections[section].subtitle, section: section, delegate: self)
         return header
     }
