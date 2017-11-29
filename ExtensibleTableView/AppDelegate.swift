@@ -15,13 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, COSTouchVisualizerWindowD
     lazy var window: UIWindow? = {
         var customWindow = COSTouchVisualizerWindow(frame: UIScreen.main.bounds)
         
-        customWindow.fillColor = UIColor.white
-        customWindow.strokeColor = UIColor.gray
-        customWindow.touchAlpha = 0.1;
+        customWindow.touchImage = UIImage(named: "troll")
+        customWindow.touchAlpha = 1.0
+//        customWindow.fillColor = UIColor.white
+//        customWindow.strokeColor = UIColor.gray
+//        customWindow.touchAlpha = 0.1;
+
 
         customWindow.rippleFillColor = UIColor.white
         customWindow.rippleStrokeColor = UIColor.gray
-        customWindow.touchAlpha = 0.1;
         
         customWindow.touchVisualizerWindowDelegate = self
         return customWindow
