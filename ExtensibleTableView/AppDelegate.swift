@@ -7,16 +7,28 @@
 //
 
 import UIKit
+import COSTouchVisualizer
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, COSTouchVisualizerWindowDelegate {
 
-    var window: UIWindow?
+    lazy var window: UIWindow? = {
+        var customWindow = COSTouchVisualizerWindow(frame: UIScreen.main.bounds)
+        
+        customWindow.fillColor = UIColor.white
+        customWindow.strokeColor = UIColor.gray
+        customWindow.touchAlpha = 0.1;
 
+        customWindow.rippleFillColor = UIColor.white
+        customWindow.rippleStrokeColor = UIColor.gray
+        customWindow.touchAlpha = 0.1;
+        
+        customWindow.touchVisualizerWindowDelegate = self
+        return customWindow
+    }()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
         let rootVC = InitBuilder.viewController()
         window?.rootViewController = rootVC
         window?.makeKeyAndVisible()
@@ -46,6 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func touchVisualizerWindowShouldAlwaysShowFingertip(_ window: COSTouchVisualizerWindow!) -> Bool {
+        return true
+    }
 }
 

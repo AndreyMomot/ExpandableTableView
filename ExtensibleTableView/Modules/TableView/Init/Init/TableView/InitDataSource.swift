@@ -21,7 +21,6 @@ class InitDataSource: NSObject, UITableViewDataSource {
     }
 
     // MARK: - UITableViewDataSource
-
     internal func numberOfSections(in tableView: UITableView) -> Int {
         return self.model.sections.count
     }
